@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load static %}
+{% load socialaccount %}
+<html dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Jexroid</title>
+    <link rel="manifest" href="{% static 'manifest.json' %}"/>
+    <meta name="description" content="project for the comapteion pajohesh sara">
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/apple-icon-57x57.png' %}}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'img/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'img/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'img/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="application-name" content="Jexroid" />
+    <meta name="apple-mobile-web-app-title" content="Jexroid" />
+    <meta name="msapplication-starturl" content="/index.html" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css"/>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>jexroid | Login Menu</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+  <script type="text/javascript">
+    // installing service worker
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register("{% static 'sw.js' %}").then(registration => {
+          console.log('SW registration succeeded:', registration);
+          navigator.serviceWorker.ready
+            .then(function (registration) {
+              console.log('SW is active:', registration.active);
+    
+    
+            });
+        }).catch(registrationError => {
+          console.log('SW registration failed: ', registrationError);
+        });
+      });
+    }
+  </script>
+  {% if user.is_authenticated %}  
+    <div class="login-box">
+      <center>
+        <form>
+          <h2 style="color:white;">welcome {{ user.username }}</h2>
+          <a href="{% url 'logout' %}">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            LOGOUT
+          </a>
+        </form>
+      </center>
+    </div>
+  {% else %}
+    <div class="login-box">
+        <h2>login pannel</h2>
+        <form>
+          <div class="user-box">
+            <!-- <input type="text" name="" required=""> -->
+            <!-- <label>username</label> -->
+          </div>
+          <div class="user-box">
+            <!-- <input type="password" name="" required=""> -->
+            <!-- <label>password</label> -->
+          </div>
+          <center>
+            <div class="user-box">
+              <a href="{% provider_login_url 'github' %}">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                github
+              </a>
+            </div>
+          </center>
+        </form>
+      </div>
+  {% endif %}
+  </body>
+</html>
